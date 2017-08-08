@@ -46,3 +46,19 @@ func TestSerde(t *testing.T) {
 
 	fmt.Printf("Obj: %s\n", toolkit.JsonString(&serdeObj))
 }
+
+func TestWriteObject(t *testing.T) {
+	serdeObj := struct {
+		FullName string
+		Age      int
+	}{}
+
+	if err := cfg.Serde(&serdeObj); err != nil {
+		t.Error(err)
+	}
+
+	serdeObj.Age = 38
+	if err := cfg.WriteObject(serdeObj); err != nil {
+		t.Error(err)
+	}
+}

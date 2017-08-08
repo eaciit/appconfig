@@ -60,6 +60,15 @@ func (c *Config) Write() error {
 	return nil
 }
 
+func (c *Config) WriteObject(obj interface{}) error {
+	maps := map[string]interface{}{}
+	if err := toolkit.Serde(obj, &maps, ""); err != nil {
+		return fmt.Errorf("unable to serialized object. %s", err.Error())
+	}
+	c.configs = maps
+	return c.Write()
+}
+
 func (c *Config) Serde(o interface{}) error {
 	if !c.isLoaded {
 		return fmt.Errorf("config is not yet laoded")
