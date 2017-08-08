@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/eaciit/toolkit"
+
 	. "github.com/eaciit/appconfig"
 )
 
@@ -29,4 +31,18 @@ func TestCfgGet(t *testing.T) {
 	} else {
 		fmt.Printf("Config: %s\n", s)
 	}
+}
+
+func TestSerde(t *testing.T) {
+	serdeObj := struct {
+		FullName string
+		Age      int
+	}{}
+
+	cfg.Set("Age", 37)
+	if err := cfg.Serde(&serdeObj); err != nil {
+		t.Error(err)
+	}
+
+	fmt.Printf("Obj: %s\n", toolkit.JsonString(&serdeObj))
 }

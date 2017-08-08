@@ -2,6 +2,7 @@ package appconfig
 
 import (
 	"encoding/json"
+	"fmt"
 
 	"github.com/eaciit/toolkit"
 	//"errors"
@@ -60,6 +61,9 @@ func (c *Config) Write() error {
 }
 
 func (c *Config) Serde(o interface{}) error {
+	if !c.isLoaded {
+		return fmt.Errorf("config is not yet laoded")
+	}
 	return toolkit.Serde(c.configs, o, "")
 }
 
