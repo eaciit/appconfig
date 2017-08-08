@@ -1,6 +1,7 @@
 package test
 
 import (
+	"fmt"
 	"testing"
 
 	. "github.com/eaciit/appconfig"
@@ -25,5 +26,7 @@ func TestCfgGet(t *testing.T) {
 	s := cfg.Get("FullName").(string)
 	if s != nameTest {
 		t.Error("Unable to read value. Expected '" + nameTest + "' got '" + s + "'")
+	} else {
+		fmt.Printf("Config: %s\n", s)
 	}
 }

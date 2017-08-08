@@ -2,20 +2,17 @@ package appconfig
 
 import (
 	"encoding/json"
+
+	"github.com/eaciit/toolkit"
 	//"errors"
 	//"fmt"
 
 	"io/ioutil"
 	"os"
 	"path/filepath"
-	"reflect"
 
 	. "github.com/eaciit/toolkit"
 )
-
-func getType(t interface{}) string {
-	return reflect.TypeOf(t).String()
-}
 
 type Config struct {
 	filename string
@@ -60,6 +57,10 @@ func (c *Config) Write() error {
 		return err
 	}
 	return nil
+}
+
+func (c *Config) Serde(o interface{}) error {
+	return toolkit.Serde(c.configs, o, "")
 }
 
 func (c *Config) SetConfigFile(pathtofile string) error {
